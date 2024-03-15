@@ -6,7 +6,7 @@ import argparse
 from environment import Environment, Parking1
 from pathplanning import PathPlanning, ParkPathPlanning, interpolate_path
 from control import Car_Dynamics, MPC_Controller, Linear_MPC_Controller
-from utils import angle_of_line, make_square, DataLogger
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser() # 4,35
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     parser.add_argument('--parking', type=int, default=1, help='park position in parking1 out of 24')
 
     args = parser.parse_args()
-    logger = DataLogger()
+    # logger = DataLogger()
 
     ########################## default variables ################################################
     start = np.array([args.x_start, args.y_start])
@@ -92,7 +92,7 @@ if __name__ == '__main__':
                 acc, delta = controller.optimize(my_car, final_path[i:i+MPC_HORIZON])
                 my_car.update_state(my_car.move(acc,  delta))
                 res = env.render(my_car.x, my_car.y, my_car.psi, delta)
-                logger.log(point, my_car, acc, delta)
+                # logger.log(point, my_car, acc, delta)
                 cv2.imshow('environment', res)
                 key = cv2.waitKey(1)
                 if key == ord('s'):
@@ -138,11 +138,11 @@ if __name__ == '__main__':
     except Exception as e2:
         # zeroing car steer
         res = env.render(my_car.x, my_car.y, my_car.psi, 0)
-        logger.save_data()
+        # logger.save_data()
         cv2.imshow('environment', res)
         key = cv2.waitKey()
         #############################################################################################
 
         cv2.destroyAllWindows()
 
-    logger.save_data()
+    # logger.save_data()

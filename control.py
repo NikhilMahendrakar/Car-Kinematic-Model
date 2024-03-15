@@ -57,7 +57,7 @@ class MPC_Controller:
                 cost += np.sum(self.Rd@((u_k[:,i+1] - u_k[:,i])**2))
         return cost
 
-    def optimize(self, my_car, points):   # NO CHANGES REQUIRED
+    def optimize(self, my_car, points):   # No Changes Required
         self.horiz = points.shape[0]
         bnd = [(-5, 5),(np.deg2rad(-60), np.deg2rad(60))]*self.horiz
         result = minimize(self.mpc_cost, args=(my_car, points), x0 = np.zeros((2*self.horiz)), method='SLSQP', bounds = bnd)
@@ -67,7 +67,7 @@ class MPC_Controller:
 
 ######################################################################################################################################################################
 
-class Linear_MPC_Controller:       # CHANGES REQUIRED
+class Linear_MPC_Controller:       # Changes Required
     def __init__(self):
         self.horiz = None
         self.R = np.diag([0.01, 0.01])                 # input cost matrix
@@ -98,7 +98,7 @@ class Linear_MPC_Controller:       # CHANGES REQUIRED
         
         return A, B, C
 
-    def mpc_cost(self, u_k, my_car, points):     #CHANGES REQUIRED
+    def mpc_cost(self, u_k, my_car, points):     #Changes Required
         
         u_k = u_k.reshape(self.horiz, 2).T
         z_k = np.zeros((2, self.horiz+1))
@@ -120,7 +120,7 @@ class Linear_MPC_Controller:       # CHANGES REQUIRED
             old_state = new_state
         return cost
 
-    def optimize(self, my_car, points):         #CHANGES REQUIRED
+    def optimize(self, my_car, points):         #Changes Required
         self.horiz = points.shape[0]
         bnd = [(-5, 5),(np.deg2rad(-60), np.deg2rad(60))]*self.horiz
         result = minimize(self.mpc_cost, args=(my_car, points), x0 = np.zeros((2*self.horiz)), method='SLSQP', bounds = bnd)
