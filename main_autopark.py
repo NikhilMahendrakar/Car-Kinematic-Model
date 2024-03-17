@@ -29,10 +29,10 @@ if __name__ == '__main__':
 
 
     env = Environment(obs)
-    my_car = Car_Dynamics(start[0], start[1], 0, np.deg2rad(args.psi_start), length=4, dt=0.2)
+    my_car = Car_Dynamics(start[0], start[1], 0, np.deg2rad(args.psi_start), length=2, dt=0.2)
     MPC_HORIZON = 5
     controller = MPC_Controller()
-    # controller = Linear_MPC_Controller()
+   
 
     res = env.render(my_car.x, my_car.y, my_car.psi, 0)
     cv2.imshow('environment', res)
@@ -67,13 +67,13 @@ if __name__ == '__main__':
                 acc, delta = controller.optimize(my_car, final_path[i:i+MPC_HORIZON])
                 my_car.update_state(my_car.move(acc,  delta))
                 res = env.render(my_car.x, my_car.y, my_car.psi, delta)
-                # logger.log(point, my_car, acc, delta)
+               
                 cv2.imshow('environment', res)
                 key = cv2.waitKey(1)
                 if key == ord('s'):
                     cv2.imwrite('res.png', res*255)
 
-                if my_car.y <= 0: #only live path plan when not near parking lot
+                if my_car.y <= 0: 
                     print('generate obstacles')
                     end, obs = parking1.generate_obstacles(time=i)
                     env = Environment(obs)
