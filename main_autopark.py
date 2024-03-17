@@ -18,37 +18,16 @@ if __name__ == '__main__':
     parser.add_argument('--parking', type=int, default=1, help='park position in parking1 out of 24')
 
     args = parser.parse_args()
-    # logger = DataLogger()
+    
 
-    ########################## default variables ################################################
+   
     start = np.array([args.x_start, args.y_start])
     end   = np.array([args.x_end, args.y_end])
-    #############################################################################################
-
-    # environment margin  : 5
-    # pathplanning margin : 5
-
-    ########################## defining obstacles ###############################################
+    
     parking1 = Parking1(args.parking)
     end, obs = parking1.generate_obstacles()
 
-    # add squares
-    # square1 = make_square(10,65,20)
-    # square2 = make_square(15,30,20)
-    # square3 = make_square(50,50,10)
-    # obs = np.vstack([obs,square1,square2,square3])
 
-    # Rahneshan logo
-    # start = np.array([50,5])
-    # end = np.array([35,67])
-    # rah = np.flip(cv2.imread('READ_ME/rahneshan_obstacle.png',0), axis=0)
-    # obs = np.vstack([np.where(rah<100)[1],np.where(rah<100)[0]]).T
-
-    # new_obs = np.array([[78,78],[79,79],[78,79]])
-    # obs = np.vstack([obs,new_obs])
-    #############################################################################################
-
-    ########################### initialization ##################################################
     env = Environment(obs)
     my_car = Car_Dynamics(start[0], start[1], 0, np.deg2rad(args.psi_start), length=4, dt=0.2)
     MPC_HORIZON = 5
@@ -58,9 +37,7 @@ if __name__ == '__main__':
     res = env.render(my_car.x, my_car.y, my_car.psi, 0)
     cv2.imshow('environment', res)
     key = cv2.waitKey(1)
-    #############################################################################################
 
-    ############################# path planning #################################################
     park_path_planner = ParkPathPlanning(obs)
     path_planner = PathPlanning(obs)
 
@@ -81,9 +58,7 @@ if __name__ == '__main__':
 
     final_path = np.vstack([interpolated_path, interpolated_park_path, ensure_path2])
 
-    #############################################################################################
 
-    ################################## control ##################################################
     print('driving to destination ...')
     MPC_reset = False
     try:
@@ -128,21 +103,20 @@ if __name__ == '__main__':
                         env.draw_path(interpolated_path)
                         env.draw_path(interpolated_park_path)
                         print(e)
-                else: #still draw current path
+                else: 
                     if not MPC_reset:
                         controller = MPC_Controller()
                     MPC_reset = True
                     env.draw_path(interpolated_path)
                     env.draw_path(interpolated_park_path)
-                    # sleep(1)
+                   
     except Exception as e2:
-        # zeroing car steer
+       
         res = env.render(my_car.x, my_car.y, my_car.psi, 0)
-        # logger.save_data()
+       
         cv2.imshow('environment', res)
         key = cv2.waitKey()
-        #############################################################################################
+        
 
         cv2.destroyAllWindows()
 
-    # logger.save_data()
