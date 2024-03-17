@@ -9,22 +9,23 @@ from control import Car_Dynamics, MPC_Controller, Linear_MPC_Controller
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser() # 4,35
-    parser.add_argument('--x_start', type=int, default=4, help='X of start')
-    parser.add_argument('--y_start', type=int, default=35, help='Y of start')
-    parser.add_argument('--psi_start', type=int, default=0, help='psi of start')
-    parser.add_argument('--x_end', type=int, default=90, help='X of end')
-    parser.add_argument('--y_end', type=int, default=80, help='Y of end')
-    parser.add_argument('--parking', type=int, default=3, help='park position in parking1 out of 24')
+    parser = argparse.ArgumentParser() 
+    parser.add_argument('--x_start', type=int, default=4)
+    parser.add_argument('--y_start', type=int, default=35)
+    parser.add_argument('--psi_start', type=int, default=0)
+    parser.add_argument('--x_end', type=int, default=90)
+    parser.add_argument('--y_end', type=int, default=80)
+    parser.add_argument('--parking', type=int, default=3)
 
     args = parser.parse_args()
+    parking_spot = input(" Enter the parking spot out of the 24 position ")
     
 
    
     start = np.array([args.x_start, args.y_start])
     end   = np.array([args.x_end, args.y_end])
     
-    parking1 = Parking1(args.parking)
+    parking1 = Parking1(int(parking_spot))
     end, obs = parking1.generate_obstacles()
 
 
