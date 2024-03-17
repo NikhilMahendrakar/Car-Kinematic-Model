@@ -19,16 +19,16 @@ def make_square(x, y, width):
                       [[i,y+int(width/2)] for i in range(x-int(width/2),x+int(width/2))]) 
     return square
 
-############################################## Functions ######################################################
 
-def interpolate_b_spline_path(x, y, n_path_points, degree=3):    # No Changes Required
+
+def interpolate_b_spline_path(x, y, n_path_points, degree=3):    
     ipl_t = np.linspace(0.0, len(x) - 1, len(x))
     spl_i_x = scipy_interpolate.make_interp_spline(ipl_t, x, k=degree)
     spl_i_y = scipy_interpolate.make_interp_spline(ipl_t, y, k=degree)
     travel = np.linspace(0.0, len(x) - 1, n_path_points)
     return spl_i_x(travel), spl_i_y(travel)
-
-def interpolate_path(path, sample_rate):       # No Changes Required 
+ 
+def interpolate_path(path, sample_rate):      
     choices = np.arange(0,len(path),sample_rate)
     if len(path)-1 not in choices:
             choices =  np.append(choices , len(path)-1)
@@ -40,7 +40,6 @@ def interpolate_path(path, sample_rate):       # No Changes Required
     # new_path[new_path<0] = 0
     return new_path
 
-################################################ Path Planner ################################################
 
 class AStarPlanner:     # Changes Required 
 
