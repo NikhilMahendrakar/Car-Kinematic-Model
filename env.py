@@ -100,8 +100,7 @@ class Parking1:
         self.walls = [[70,i] for i in range(-5,90) ]+\
                      [[30,i] for i in range(10,105)]+\
                      [[i,10] for i in range(30,36) ]+\
-                     [[i,90] for i in range(70,76) ] #+ [[i,20] for i in range(-5,50)]
-        # self.walls = [0,100]
+                     [[i,90] for i in range(70,76) ] 
         self.obs = np.array(self.walls)
         self.cars = {1 : [35,20], 2 : [65,20], 3 : [75,20], 4 : [95,20],
                      5 : [35,32], 6 : [65,32], 7 : [75,32], 8 : [95,32],
