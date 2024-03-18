@@ -3,8 +3,8 @@ import numpy as np
 from time import sleep
 import argparse
 
-from environment import Environment, Parking1
-from pathplanning import PathPlanning, ParkPathPlanning, interpolate_path
+from env import Environment, Parking1
+from HybridAimplementation import PathPlanning, ParkPathPlanning, interpolate_path
 from control import Car_Dynamics, MPC_Controller
 
 
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     parser.add_argument('--psi_start', type=int, default=0)
     parser.add_argument('--x_end', type=int, default=90)
     parser.add_argument('--y_end', type=int, default=80)
-    parser.add_argument('--parking', type=int, default=3)
+   
 
     args = parser.parse_args()
     parking_spot = input(" Enter the parking spot out of the 24 position ")
