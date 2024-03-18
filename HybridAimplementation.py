@@ -279,7 +279,7 @@ class AStarPlanner:
 class PathPlanning:
     def __init__(self,obstacles):
         self.margin = 5
-        #sacale obstacles from env margin to pathplanning margin
+        
         obstacles = obstacles + np.array([self.margin,self.margin])
         obstacles = obstacles[(obstacles[:,0]>=0) & (obstacles[:,1]>=0)]
 
@@ -297,7 +297,7 @@ class PathPlanning:
 
     def plan_path(self, sx, sy, gx, gy):
         rx, ry, ryaw = self.a_star.planning(sx + self.margin, sy + self.margin, gy, gx + self.margin, gy + self.margin, 0)
-        # Ensure all required arguments are provided, including placeholders for yaw angles
+        
         rx = np.array(rx) - self.margin + 0.5
         ry = np.array(ry) - self.margin + 0.5
         path = np.vstack([rx, ry]).T
@@ -308,7 +308,7 @@ class PathPlanning:
 class ParkPathPlanning:
     def __init__(self,obstacles):
         self.margin = 5
-        #sacale obstacles from env margin to pathplanning margin
+        
         obstacles = obstacles + np.array([self.margin,self.margin])
         obstacles = obstacles[(obstacles[:,0]>=0) & (obstacles[:,1]>=0)]
 
@@ -325,8 +325,7 @@ class ParkPathPlanning:
         self.a_star = AStarPlanner(self.ox, self.oy, self.grid_size, self.robot_radius)
 
     def generate_park_scenario(self, sx, sy, gx, gy):
-        rx, ry, ryaw = self.a_star.planning(sx+self.margin, sy+self.margin, 0, gx+self.margin, gy+self.margin, 0)
-        # The `0` values are placeholder yaw angles. 
+         
         rx = np.array(rx) - self.margin + 0.5
         ry = np.array(ry) - self.margin + 0.5
         path = np.vstack([rx, ry]).T
