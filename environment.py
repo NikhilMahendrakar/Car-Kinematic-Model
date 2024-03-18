@@ -6,13 +6,13 @@ class Environment:
     def __init__(self, obstacles):
         self.margin = 5
         
-        self.car_length = 10
-        self.car_width = 10
-        self.wheel_length = 1
-        self.wheel_width = 1
-        self.wheel_positions = np.array([[25, 15], [25, -15], [-25, 15], [-25, -15]])
+        self.car_length = 15
+        self.car_width = 15
+        self.wheel_length = 0.2
+        self.wheel_width = 0.2
+        self.wheel_positions = np.array([[25, 25], [25, 25], [25, 25], [25, 25]])
 
-        self.color = np.array([255, 0,0]) / 255
+        self.color = np.array([0, 0,0]) / 255
         self.wheel_color = np.array([0,0,0]) / 255
 
         self.car_struct = np.array([[+self.car_length / 2, +self.car_width / 2],
@@ -100,7 +100,8 @@ class Parking1:
         self.walls = [[70,i] for i in range(-5,90) ]+\
                      [[30,i] for i in range(10,105)]+\
                      [[i,10] for i in range(30,36) ]+\
-                     [[i,90] for i in range(70,76) ] 
+                     [[i,90] for i in range(70,76) ] #+ [[i,20] for i in range(-5,50)]
+        # self.walls = [0,100]
         self.obs = np.array(self.walls)
         self.cars = {1 : [35,20], 2 : [65,20], 3 : [75,20], 4 : [95,20],
                      5 : [35,32], 6 : [65,32], 7 : [75,32], 8 : [95,32],
