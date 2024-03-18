@@ -5,7 +5,7 @@ import argparse
 
 from environment import Environment, Parking1
 from pathplanning import PathPlanning, ParkPathPlanning, interpolate_path
-from control import Car_Dynamics, MPC_Controller, Linear_MPC_Controller
+from control import Car_Dynamics, MPC_Controller
 
 
 if __name__ == '__main__':
